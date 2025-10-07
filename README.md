@@ -95,6 +95,6 @@ python src/main.py
 ```
 
 ### Team Members
-*   [Your Name]
-*   [Groupmate 1's Name]
-*   [Groupmate 2's Name]
+*   Omar Pleitez
+*   Ben Ikanovic
+*   Nathanael Lee 
