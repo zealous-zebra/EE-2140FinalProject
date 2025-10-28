@@ -3,6 +3,7 @@ numpy
 librosa
 pyaudio
 pydub
+sounddevices
 
 # Spotify API Interaction
 spotipy
@@ -10,9 +11,10 @@ spotipy
 # Data Visualization
 matplotlib
 
-# GUI Framework (Choose one and uncomment, Kivy is good for touchscreens)
-# kivy
-# pyqt5
+#userinterface
+pyqt6
+
 
 # For loading environment variables (API Keys)
 python-dotenv
+
