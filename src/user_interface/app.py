@@ -19,7 +19,7 @@ from src.audio_processing.visualization import save_plots
 
 class ShazamifyApp(QMainWindow):
     """
-    The main application window for Shazamify Pi.
+    The main application window for shazamify Pi.
 
     This class constructs and manages the entire graphical user interface,
     including all its tabs, widgets, and connections to the backend logic
@@ -35,7 +35,7 @@ class ShazamifyApp(QMainWindow):
         and calls the setup methods for each tab to build the UI.
         """
         super().__init__()
-        self.setWindowTitle("Shazamify Pi")
+        self.setWindowTitle("shazamify Pi")
         self.setGeometry(100, 100, 900, 600)
         self.setStyleSheet("""
             QMainWindow {
@@ -77,7 +77,7 @@ class ShazamifyApp(QMainWindow):
 
         self.shazam_tab = QWidget()
         self.analysis_tab = QWidget()
-        self.tabs.addTab(self.shazam_tab, " Shazamify")
+        self.tabs.addTab(self.shazam_tab, " shazamify")
         self.tabs.addTab(self.analysis_tab, " Audio Analysis")
 
         # --- Build the UI for each tab ---
@@ -86,7 +86,7 @@ class ShazamifyApp(QMainWindow):
 
     def setup_shazam_tab(self):
         """
-        Constructs the user interface for the "Shazamify" tab.
+        Constructs the user interface for the "shazamify" tab.
 
         This method creates all the widgets for song recognition, including the
         album art display, song/artist/album info labels, and the "Listen" button.
@@ -303,7 +303,7 @@ class ShazamifyApp(QMainWindow):
 
         This method uses a hardcoded song title as a placeholder for the actual
         audio recognition logic. It calls the Spotify client, gets song details,
-        and updates the UI on the "Shazamify" tab with the results.
+        and updates the UI on the "shazamify" tab with the results.
         """
         if not self.spotify_client: self.song_label.setText("Error: Spotify client not initialized."); return
         self.song_label.setText("🎵 Listening...");

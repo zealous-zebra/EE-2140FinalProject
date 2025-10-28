@@ -1,4 +1,4 @@
-# File: src/spotify_api/client.py
+# File: src/spotify_api/spotify_client.py
 
 import os
 import spotipy
