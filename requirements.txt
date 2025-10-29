@@ -5,8 +5,9 @@ pyaudio
 pydub
 sounddevice
 
-# Spotify API Interaction
+#  API Interaction
 spotipy
+pyacrcloud
 
 # Data Visualization
 matplotlib
@@ -17,4 +18,3 @@ pyqt6
 
 # For loading environment variables (API Keys)
 python-dotenv
-
