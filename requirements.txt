@@ -2,8 +2,8 @@
 numpy
 librosa
 pyaudio
-pydub`
-sounddevices
+pydub
+sounddevice
 
 # Spotify API Interaction
 spotipy
