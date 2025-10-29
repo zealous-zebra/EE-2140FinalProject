@@ -91,7 +91,7 @@ your-project-name/
 To run the main application, execute the `main.py` script from the root directory:
 
 ```bash
-python src/main.py
+python shazamify/main.py
 ```
 
 ### Team Members
