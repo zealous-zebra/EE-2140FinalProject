@@ -13,7 +13,7 @@ pyacrcloud
 matplotlib
 
 #userinterface
-pyqt6
+PyQt6
 
 
 # For loading environment variables (API Keys)
