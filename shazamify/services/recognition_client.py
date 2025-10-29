@@ -1,13 +1,11 @@
 # File: shazamify/services/recognition_client.py
-# (This is the fully corrected version)
 
 import os
 import json
 import pathlib
 from dotenv import load_dotenv
 
-# --- CHANGED LINE ---
-# This is the correct import statement based on the official documentation.
+
 from acrcloud.recognizer import ACRCloudRecognizer
 
 
@@ -33,8 +31,7 @@ class RecognitionClient:
             if not all(config.values()):
                 raise ValueError("ACRCloud API credentials not found in .env file.")
 
-            # --- CHANGED LINE ---
-            # We now directly instantiate the class we imported.
+
             self.recognizer = ACRCloudRecognizer(config)
             print("ACRCloud Recognition Client initialized successfully.")
 

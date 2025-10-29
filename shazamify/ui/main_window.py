@@ -9,6 +9,7 @@ from .widgets.analysis_tab import AnalysisTab
 
 class ShazamifyApp(QMainWindow):
     """The main application window, which holds all other UI components."""
+
     def __init__(self):
         super().__init__()
         self.setWindowTitle("Shazamify Pi")
