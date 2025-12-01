@@ -1,9 +1,9 @@
-# Project Shazamify Pi
+# Project Shazamify
 
 ## Table of Contents
 1. [Project Description](#project-description)
 2. [Features](#features)
-3. [Hardware Requirements](#hardware-requirements)
+3. [System Requirements](#system-requirements)
 4. [Software and Setup](#software-and-setup)
 5. [Project Structure](#project-structure)
 6. [How to Run](#how-to-run)
@@ -13,26 +13,22 @@
 
 ### Project Description
 
-Shazamify Pi is a custom-built, Raspberry Pi 5-powered device designed for real-time music recognition and analysis. Housed in a custom-designed chassis, it features a high-resolution touchscreen display for a rich user interface. The device can listen to a song playing nearby, identify it, and provide detailed information and visualizations related to the music.
+Shazamify is a desktop application designed for real-time music recognition and analysis. It features a rich user interface that can listen to a song playing nearby, identify it, and provide detailed information and visualizations related to the music.
 
-This project combines hardware design (CAD), software development (Python), and API integration to create a visually stunning and practical music companion.
+This project combines software development (Python) and API integration to create a visually stunning and practical music companion.
 
 ### Features
 
 *   **Song Recognition:** Utilizes a microphone to record audio and identify the song title and artist.
 *   **Spotify Integration:** Connects to the Spotify API to fetch related artist information, albums, and other metadata.
 *   **Audio Visualization:** Performs a Fast Fourier Transform (FFT) on the recorded audio to generate and display a real-time frequency spectrum plot.
-*   **Touchscreen GUI:** A user-friendly graphical interface designed for a touchscreen LCD.
-*   **Custom Chassis:** A unique enclosure designed with CAD software and built using laser-cut plexiglass and 3D-printed components.
+*   **Graphical User Interface:** A user-friendly graphical interface designed for easy interaction.
 
-### Hardware Requirements
+### System Requirements
 
-*   Raspberry Pi 5 (8GB Recommended)
-*   Official Raspberry Pi 27W USB-C Power Supply
-*   Raspberry Pi Active Cooler
-*   32GB+ High-Speed MicroSD Card (A2 Rated)
-*   10.1-inch Touchscreen LCD Display
-*   USB Microphone
+*   Python 3.x
+*   Microphone (Built-in or USB)
+*   Internet Connection (for API access)
 
 ### Software and Setup
 
@@ -40,8 +36,8 @@ This project is built with Python. Follow these steps to set up the development 
 
 1.  **Clone the Repository:**
     ```bash
-    git clone https://github.com/your-username/your-project-name.git
-    cd your-project-name
+    git clone https://github.com/zealous-zebra/EE-2140FinalProject.git
+    cd EE-2140FinalProject
     ```
 
 2.  **Create a Virtual Environment:**
@@ -71,8 +67,7 @@ This project is built with Python. Follow these steps to set up the development 
 ### Project Structure
 
 ```
-your-project-name/
-├── cad/                  # CAD files for the chassis
+EE-2140FinalProject/
 ├── data/                 # For audio recordings and plots
 ├── docs/                 # Project documentation
 ├── src/                  # Main source code
