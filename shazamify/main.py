@@ -2,6 +2,11 @@
 # Purpose: The main entry point for the Shazamify Pi application.
 
 import sys
+import os
+
+# Add the parent directory to sys.path to allow absolute imports from the shazamify package
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
 from PyQt6.QtWidgets import QApplication
 
 from shazamify.ui.main_window import ShazamifyApp
