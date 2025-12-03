@@ -6,6 +6,9 @@ import matplotlib.pyplot as plt
 from pathlib import Path
 
 
+import librosa
+import librosa.display
+
 def magnitude_spectrum(x, fs):
     """Calculates the magnitude spectrum of a signal."""
     N = len(x)
@@ -24,25 +27,22 @@ def magnitude_spectrum(x, fs):
     return f, mag_db
 
 
-def generate_and_save_plots(x, fs, out_dir="data/plots", stem="clip"):
-    """
-    Generates and saves time domain and frequency domain plots of the audio data.
-    """
+def generate_time_domain(x, fs, out_dir="data/plots", stem="clip"):
     Path(out_dir).mkdir(parents=True, exist_ok=True)
     t = np.arange(len(x)) / fs
-
-    # Generate Time Domain plot
     plt.figure()
     plt.title("Time Domain")
     plt.plot(t, x)
     plt.xlabel("Seconds (s)")
     plt.ylabel("Amplitude")
     plt.grid(True)
-    time_png = f"{out_dir}/{stem}_time.png"
-    plt.savefig(time_png, dpi=120, bbox_inches="tight")
+    path = f"{out_dir}/{stem}_time.png"
+    plt.savefig(path, dpi=100, bbox_inches="tight")
     plt.close()
+    return path
 
-    # Generate Magnitude Spectrum plot
+def generate_magnitude_spectrum(x, fs, out_dir="data/plots", stem="clip"):
+    Path(out_dir).mkdir(parents=True, exist_ok=True)
     f, mag_db = magnitude_spectrum(x, fs)
     plt.figure()
     plt.title("Magnitude Spectrum")
@@ -50,8 +50,61 @@ def generate_and_save_plots(x, fs, out_dir="data/plots", stem="clip"):
     plt.xlabel("Frequency (Hz)")
     plt.ylabel("Magnitude (dB)")
     plt.grid(True)
-    freq_png = f"{out_dir}/{stem}_spectrum.png"
-    plt.savefig(freq_png, dpi=120, bbox_inches="tight")
+    path = f"{out_dir}/{stem}_spectrum.png"
+    plt.savefig(path, dpi=100, bbox_inches="tight")
     plt.close()
+    return path
 
-    return {"time_png": time_png, "spectrum_png": freq_png}
+def generate_chromagram(x, fs, out_dir="data/plots", stem="clip"):
+    Path(out_dir).mkdir(parents=True, exist_ok=True)
+    plt.figure()
+    y_harmonic, y_percussive = librosa.effects.hpss(x)
+    chroma = librosa.feature.chroma_cqt(y=y_harmonic, sr=fs)
+    librosa.display.specshow(chroma, sr=fs, x_axis='time', y_axis='chroma', vmin=0, vmax=1)
+    plt.title('Chromagram')
+    plt.colorbar()
+    path = f"{out_dir}/{stem}_chroma.png"
+    plt.savefig(path, dpi=100, bbox_inches="tight")
+    plt.close()
+    return path
+
+def generate_spectrogram(x, fs, out_dir="data/plots", stem="clip"):
+    Path(out_dir).mkdir(parents=True, exist_ok=True)
+    plt.figure()
+    X_stft = librosa.stft(x)
+    Xdb = librosa.amplitude_to_db(np.abs(X_stft), ref=np.max)
+    librosa.display.specshow(Xdb, sr=fs, x_axis='time', y_axis='log')
+    plt.colorbar(format='%+2.0f dB')
+    plt.title('Spectrogram')
+    path = f"{out_dir}/{stem}_spectrogram.png"
+    plt.savefig(path, dpi=100, bbox_inches="tight")
+    plt.close()
+    return path
+
+def generate_mel_spectrogram(x, fs, out_dir="data/plots", stem="clip"):
+    Path(out_dir).mkdir(parents=True, exist_ok=True)
+    plt.figure()
+    # Compute Mel Spectrogram
+    S = librosa.feature.melspectrogram(y=x, sr=fs, n_mels=128, fmax=8000)
+    S_dB = librosa.power_to_db(S, ref=np.max)
+    librosa.display.specshow(S_dB, x_axis='time', y_axis='mel', sr=fs, fmax=8000)
+    plt.colorbar(format='%+2.0f dB')
+    plt.title('Mel-frequency Spectrogram')
+    path = f"{out_dir}/{stem}_mel.png"
+    plt.savefig(path, dpi=100, bbox_inches="tight")
+    plt.close()
+    return path
+
+def generate_tempogram(x, fs, out_dir="data/plots", stem="clip"):
+    Path(out_dir).mkdir(parents=True, exist_ok=True)
+    plt.figure()
+    # Compute Fourier Tempogram
+    oenv = librosa.onset.onset_strength(y=x, sr=fs)
+    tempogram = librosa.feature.fourier_tempogram(onset_envelope=oenv, sr=fs)
+    librosa.display.specshow(np.abs(tempogram), sr=fs, hop_length=512, x_axis='time', y_axis='fourier_tempo')
+    plt.colorbar()
+    plt.title('Fourier Tempogram')
+    path = f"{out_dir}/{stem}_tempogram.png"
+    plt.savefig(path, dpi=100, bbox_inches="tight")
+    plt.close()
+    return path

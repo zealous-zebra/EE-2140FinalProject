@@ -35,11 +35,30 @@ class SpotifyClient:
                 return {"error": f"No results found for '{song_title}'."}
 
             track = result['tracks']['items'][0]
+            artist = track['artists'][0]
             return {
                 "song_name": track['name'],
-                "artist(s)": ', '.join([artist['name'] for artist in track['artists']]),
+                "artist(s)": ', '.join([a['name'] for a in track['artists']]),
+                "artist_id": artist['id'],
                 "album_name": track['album']['name'],
                 "album_art_url": track['album']['images'][0]['url'] if track['album']['images'] else ''
             }
         except Exception as e:
             return {"error": f"An API error occurred: {e}"}
+
+    def get_artist_albums(self, artist_id: str) -> dict:
+        """Fetches top albums for the given artist."""
+        if not self.sp: return {}
+        
+        top_albums = []
+
+        try:
+            # Get artist albums (avoiding singles/compilations if possible, or just taking top)
+            albums = self.sp.artist_albums(artist_id, album_type='album', limit=3)
+            top_albums = [a['name'] for a in albums['items']]
+        except Exception as e:
+            pass
+
+        return {
+            "top_albums": top_albums
+        }

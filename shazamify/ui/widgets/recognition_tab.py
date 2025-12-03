@@ -47,9 +47,22 @@ class RecognitionTab(QWidget):
         self.listen_button.setCursor(Qt.CursorShape.PointingHandCursor)
         self.listen_button.clicked.connect(self.listen_button_pressed.emit)
 
+        # --- RECOMMENDATIONS SECTION ---
+        self.recommendations_layout = QVBoxLayout()
+        self.recommendations_layout.setSpacing(5)
+        
+        self.top_albums_label = QLabel("")
+        self.top_albums_label.setFont(QFont("Arial", 18))
+        self.top_albums_label.setStyleSheet("color: #cccccc;")
+        self.top_albums_label.setWordWrap(True)
+
+        self.recommendations_layout.addWidget(self.top_albums_label)
+
         right_layout.addStretch(1)
         right_layout.addWidget(self.song_label); right_layout.addWidget(self.artist_label)
-        right_layout.addWidget(self.album_label); right_layout.addStretch(2)
+        right_layout.addWidget(self.album_label); right_layout.addStretch(1)
+        right_layout.addLayout(self.recommendations_layout) # Add recommendations here
+        right_layout.addStretch(1)
         right_layout.addWidget(self.listen_button, alignment=Qt.AlignmentFlag.AlignCenter)
         right_layout.addStretch(1)
         main_layout.addLayout(right_layout, 1)
@@ -58,6 +71,7 @@ class RecognitionTab(QWidget):
     def set_status_listening(self):
         self.song_label.setText("🎵 Listening..."); self.artist_label.setText("Analyzing audio...")
         self.album_label.setText(""); self.listen_button.setEnabled(False)
+        self.top_albums_label.setText("")
         self.listen_button.setText("⏳ Processing...")
         QApplication.processEvents()
 
@@ -65,9 +79,16 @@ class RecognitionTab(QWidget):
         if "error" in details:
             self.song_label.setText(f"❌ {details['error']}"); self.artist_label.setText("Please try again.")
             self.album_label.setText(""); self.set_album_art_pixmap(self.default_pixmap)
+            self.top_albums_label.setText("")
         else:
             self.song_label.setText(details['song_name']); self.artist_label.setText(f"by {details['artist(s)']}")
             self.album_label.setText(details['album_name']); self.update_album_art(details['album_art_url'])
+            
+            # Update recommendations
+            if "top_albums" in details and details["top_albums"]:
+                albums_str = ", ".join(details["top_albums"])
+                self.top_albums_label.setText(f"<b>More from this Artist:</b> {albums_str}")
+
         self.listen_button.setEnabled(True); self.listen_button.setText("🎧 Listen")
 
     # --- HELPER METHODS ---
